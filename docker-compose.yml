@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  main:
+    image: main
+    build:
+      context: main
+    volumes:
+      - ${DPSRV_DATA}:/mnt/data
+  repl:
+    image: main
+    volumes:
+      - ${DPSRV_DATA}2:/mnt/data
