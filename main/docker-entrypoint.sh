@@ -4,8 +4,13 @@ ls /etc/ssh/ssh_host_*key* > /dev/null || ssh-keygen -A
 
 /usr/sbin/sshd -D &
 
-if [ -z /mnt/data/data.img ]; then
-	dd if=/dev/zero of=/mnt/data/data.img bs=10G count=1
+DATA_IMG=/mnt/data/data.img
+if [ -z $DATA_IMG ]; then
+	dd if=/dev/zero of=$DATA_IMG bs=1G count=1
+fi
+
+if ! file $DATA_IMG | grep -q ext4; then
+	mkfs.ext4 $DATA_IMG
 fi
 
 wait -n
