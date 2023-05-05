@@ -1,12 +1,22 @@
 version: "3.8"
 services:
   main:
+    cap_add:
+      - SYS_ADMIN
     image: main
     build:
       context: main
+    environment:
+      DPSRV_DEV_LOOP: /dev/loop0
+    devices:
+      - /dev/loop0
     volumes:
-      - ${DPSRV_DATA}:/mnt/data
+      - ${DPSRV_MNT}/main:/mnt/host
   repl:
     image: main
+    environment:
+      DPSRV_DEV_LOOP: /dev/loop1
+    devices:
+      - /dev/loop1
     volumes:
-      - ${DPSRV_DATA}2:/mnt/data
+      - ${DPSRV_MNT}/repl:/mnt/host
