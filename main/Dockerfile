@@ -19,7 +19,7 @@ RUN apk add --update \
 
 COPY files /
 
-VOLUME /etc
+#VOLUME /etc
 EXPOSE 22
 
 CMD [ "/usr/local/bin/docker-entrypoint.sh" ]

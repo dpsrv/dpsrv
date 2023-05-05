@@ -1,0 +1,8 @@
+resource data {
+	device minor 0;
+	disk $DPSRV_DEV_LOOP;
+	meta-disk internal;
+	protocol A;
+ 
+$DRBD_DOMAINS
+}

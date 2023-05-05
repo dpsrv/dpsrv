@@ -2,20 +2,28 @@ version: "3.8"
 services:
   main:
     cap_add:
+      - NET_ADMIN
       - SYS_ADMIN
     image: main
     build:
       context: main
     environment:
+      DPSRV_HOSTNAME: main
       DPSRV_DEV_LOOP: /dev/loop0
+      DPSRV_DRBD_ADDRS: "main:7789 repl:7789"
     devices:
       - /dev/loop0
     volumes:
       - ${DPSRV_MNT}/main:/mnt/host
   repl:
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
     image: main
     environment:
+      DPSRV_HOSTNAME: repl
       DPSRV_DEV_LOOP: /dev/loop1
+      DPSRV_DRBD_ADDRS: "main:7789 repl:7789"
     devices:
       - /dev/loop1
     volumes:
