@@ -1,10 +1,8 @@
 #!/bin/ash -x
 
-ls /etc/ssh/ssh_host_*key* > /dev/null || ssh-keygen -A
+DATA_IMG=${DATA_IMG:-/mnt/host/data.img}
+DATA_MNT=${DATA_MNT:-/mnt/data}
 
-/usr/sbin/sshd -D &
-
-DATA_IMG=/mnt/host/data.img
 if [ ! -f $DATA_IMG ]; then
 	dd if=/dev/zero of=$DATA_IMG bs=1G count=1
 fi
@@ -15,14 +13,6 @@ fi
 
 losetup -a | grep -q ^$DPSRV_DEV_LOOP || losetup -P $DPSRV_DEV_LOOP $DATA_IMG
 
-DATA_MNT=/mnt/data
-
 [ -d $DATA_MNT ] || mkdir $DATA_MNT
 mount -o loop $DPSRV_DEV_LOOP $DATA_MNT
-
-wait -n
-rc=$?
-
-echo "Exit $rc"
-
 
