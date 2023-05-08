@@ -1,6 +1,4 @@
-# dpsrv
-
-Distributed Personal Server  
+# Distributed Personal Server
 
 The goal of this project is to setup multiple personal servers in different locations that provide redundancy for applications through mirroring and replication.  
 
@@ -42,7 +40,7 @@ At this point you may need to go to `Settings > Privacy & Security`, scroll down
 
 Download and install [Vagrant](https://developer.hashicorp.com/vagrant/downloads).  
 
-Setup docker vm using provided Vagrantfile, and update ssh config:
+Setup docker vm using provided [Vagrantfile](Vagrantfile), and update ssh config:
 ```bash
 vagrant up
 vagrant ssh-config --host docker >> $HOME/.ssh/config
