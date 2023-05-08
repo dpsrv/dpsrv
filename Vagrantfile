@@ -1,5 +1,5 @@
 $init = <<-SCRIPT
-	sudo apk add inotify-tools docker
+	sudo apk add docker
 	sudo rc-update add docker
 	sudo rc-service docker start
 
