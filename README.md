@@ -2,14 +2,14 @@
 
 Distributed Personal Server  
 
-The goal for this project is to setup multiple personal servers in different locations that provide redundancy for applications through mirroring and replication where appropriate.  
+The goal of this project is to setup multiple personal servers in different locations that provide redundancy for applications through mirroring and replication.  
 
-> I built it for Mac, but it may work on other systems.  
+> My instructions are for Mac, but they may work on other systems too.  
 
 ## Host setup
 
 ### VirtualBox
-> Used to run the docker host.  
+> Used to run the docker host. VirtualBox can start at Mac's boot, and thus so can containers. Docker Desktop is a user app and can't start at boot without some serious OSX specific shamanic dances.   
 
 Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).  
 
@@ -35,7 +35,7 @@ sudo launchctl load /Library/LaunchDaemons/org.virtualbox.vboxautostart.plist
 ```
 
 At this point you may need to go to `Settings > Privacy & Security`, scroll down and Allow updates by Oracle.  
-> I have not figured out yet how to do this from the shell. 
+> I have not figured out yet how to do this from the shell. Ideas?
 
 ### Vagrant
 > Used to download os images for VirtualBox.  
