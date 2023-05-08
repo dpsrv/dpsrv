@@ -10,8 +10,9 @@ SCRIPT
 
 Vagrant.configure("2") do |config|
 	config.vm.box      = "generic/alpine317"
-	config.vm.define   = "docker"
 	config.vm.hostname = "docker"
+
+	config.vm.define "docker"
 
 	config.vm.provision "shell", inline: $init
 
