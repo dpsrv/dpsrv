@@ -9,7 +9,10 @@ The goal for this project is to setup multiple personal servers in different loc
 ## Host setup
 
 ### VirtualBox
+> Used to run Linux. Needed for containers.  
+
 Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).  
+
 Make it run at startup:
 ```bash
 sudo cp \
@@ -18,43 +21,37 @@ sudo cp \
 
 sudo plutil -replace Disabled -bool false /Library/LaunchDaemons/org.virtualbox.vboxautostart.plist
 
-sudo plutil -replace KeepAlive -bool true /Library/LaunchDaemons/org.virtualbox.vboxautostart.plist
-
 [ -d /etc/vbox ] || sudo mkdir /etc/vbox
 [ -f /etc/vbox/autostart.cfg ] || sudo tee /etc/vbox/autostart.cfg <<_EOT_ >/dev/null
 default_policy = deny
-$LOGNAME = {
+$USER = {
 	allow = true
 }
 _EOT_
 
 sudo chmod a+x /Applications/VirtualBox.app/Contents/MacOS/VBoxAutostartDarwin.sh
 
-sudo launchctl load -w /Library/LaunchDaemons/org.virtualbox.vboxautostart.plist
-
+sudo launchctl load /Library/LaunchDaemons/org.virtualbox.vboxautostart.plist
 ```
 
 At which point you may need to go to `Settings > Privacy & Security`, scroll down and Allow updates by Oracle.  
 
-#### docker-machine
-Download and install docker-machine:
+### Vagrant
+> Used to download Linux images for VirtualBox.  
+
+Download and install [Vagrant](https://developer.hashicorp.com/vagrant/downloads).  
+
+Setup Linux and make it start on boot:
 ```bash
-sudo curl -o /usr/local/bin/docker-machine -L https://github.com/docker/machine/releases/download/v0.16.2/docker-machine-$(uname -s)-$(uname -m)
-sudo chmod a+x /usr/local/bin/docker-machine"
-
-VM_NAME=docker
-docker-machine create -d virtualbox $VM_NAME || (
-	[ -d $HOME/.docker/machine/cache ] || mkdir -p $HOME/.docker/machine/cache
-	cd $HOME/.docker/machine/cache
-	sudo curl -OL https://github.com/boot2docker/boot2docker/releases/download/v19.03.12/boot2docker.iso
-	cd $OLDPWD
-	docker-machine create -d virtualbox $VM_NAME
-)
-
-VBoxManage modifyvm $VM_NAME --autostart-enabled on
-VBoxManage modifyvm $VM_NAME --autostop-type acpishutdown
+vagrant up
+vagrant ssh-config --host containerd >> $HOME/.ssh/config
 ```
 
+### Docker
+Configure location of the docker host:
+```bash
+export DOCKER_HOST=ssh://containerd
+```
 
 ### Devices
 docker plugin install linbit/linstor-docker-volume --grant-all-permissions
