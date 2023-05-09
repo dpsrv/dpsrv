@@ -61,11 +61,17 @@ export DOCKER_HOST=ssh://docker
 At this point you should be able to use docker commands in a familiar manner.
 
 ### Storage
-We will need shared storage for our servers to keep their configuration in sync. This is not intended to be used for data replication. Only for the configuration of the data replication.
+We will need shared storage for our servers to keep their configuration in sync.  
+> This is not intended to be used for application data. Only for the configuration.  
 
 #### DRBD
-ssh docker sudo apk add drbd lsblk
-
+ssh docker sudo apk add drbd lsblk e2fsprogs gettext
+ssh docker sudo mkdir -p /var/dpsrv
+ssh docker sudo dd if=/dev/zero of=/var/dpsrv/shared.img bs=100M count=1
+ssh docker sudo 'losetup -a | grep /var/dpsrv/shared.img || losetup -Pf /var/dpsrv/shared.img'
+ssh docker sudo 'file /var/dpsrv/shared.img | grep -q ext4 || sudo mkfs.ext4 /var/dpsrv/shared.img'
+ssh docker sudo mkdir -p /mnt/dpsrv
+ssh docker sudo 'mount -o loop $(sudo losetup -a | grep /var/dpsrv/shared.img|cut -d: -f0) /mnt/dpsrv'
 
 #### Block 
 ```bash
