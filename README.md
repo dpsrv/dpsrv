@@ -60,8 +60,12 @@ export DOCKER_HOST=ssh://docker
 
 At this point you should be able to use docker commands in a familiar manner.
 
-### Devices
-docker plugin install linbit/linstor-docker-volume --grant-all-permissions
+### Storage
+We will need shared storage for our servers to keep their configuration in sync. This is not intended to be used for data replication. Only for the configuration of the data replication.
+
+#### DRBD
+ssh docker sudo apk add drbd lsblk
+
 
 #### Block 
 ```bash
