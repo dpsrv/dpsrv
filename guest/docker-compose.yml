@@ -20,6 +20,8 @@ services:
       - NET_ADMIN
       - SYS_ADMIN
     image: main
+    depends_on:
+      - main
     environment:
       DPSRV_HOSTNAME: repl
       DPSRV_DEV_LOOP: /dev/loop1
