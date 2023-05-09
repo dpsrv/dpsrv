@@ -14,14 +14,19 @@ if [ -z "$DRBD_DEV" ]; then
 	DRBD_DEV=$(losetup -a | grep $DRBD_IMG\$ | cut -d: -f1)
 fi
 
-DRBD_ADDRS=${DPSRV_DRBD_ADDRS:-localhost:7789}
+hostname=$(hostname)
+DRBD_ADDRS=${DPSRV_DRBD_ADDRS:-$hostname:7789}
 
 export DRBD_DOMAINS=$(
 	i=0
 	for addr in $DRBD_ADDRS; do
 		host=${addr%:*}
 		port=${addr#*:}
-		ipv4=$(getent ahostsv4 $host|awk '{ print $1 }'|sort -fu)
+		if [ "$host" = "$hostname" ]; then
+			ipv4=$(ifconfig eth0 | grep 'inet addr:' |cut -d: -f2|awk '{ print $1 }')
+		else
+			ipv4=$(getent ahostsv4 $host|awk '{ print $1 }'|sort -fu)
+		fi
 	
 		cat <<_EOT_
 	on $host {
