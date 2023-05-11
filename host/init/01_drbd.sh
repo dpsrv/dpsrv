@@ -15,11 +15,12 @@ if [ -z "$DRBD_LOOP_DEV" ]; then
 fi
 
 DRBD_DEV=/dev/drbd0
+DRBD_PORT=7788
 
 if [ ! -f /vagrant/.vagrant/drbd.res ]; then
 
 	hostname=$(hostname)
-	DRBD_ADDRS=${DPSRV_DRBD_ADDRS:-$hostname:7789 localhost:7789}
+	DRBD_ADDRS=${DPSRV_DRBD_ADDRS:-$hostname:$DRBD_PORT localhost:$DRBD_PORT}
 
 	export DRBD_DOMAINS=$(
 		i=0
