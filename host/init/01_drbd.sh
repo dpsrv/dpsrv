@@ -1,5 +1,5 @@
 #!/bin/ash -ex
-
+exit 0
 apk add drbd lsblk
 
 DRBD_IMG=${DRBD_IMG:-/vagrant/.vagrant/drbd.img}
@@ -48,9 +48,17 @@ resource drbd {
 	device minor 0;
 	disk $DRBD_LOOP_DEV;
 	meta-disk internal;
-	protocol A;
  
 $DRBD_DOMAINS
+	net {
+		protocol A;
+		allow-two-primaries;
+		after-sb-0pri discard-zero-changes;
+		after-sb-1pri discard-secondary;
+		after-sb-2pri disconnect;
+	}
+
+	startup { become-primary-on both; }
 }
 _EOT_
 
