@@ -63,7 +63,7 @@ else
 	drbdadm -v primary drbd
 fi
 
-if [ $(blkid -o value -s TYPE $DRBD_DEV) != "ext4" ]; then
+if [ "$(blkid -o value -s TYPE $DRBD_DEV)" != "ext4" ]; then
    	mkfs.ext4 $DRBD_DEV
 fi
 
