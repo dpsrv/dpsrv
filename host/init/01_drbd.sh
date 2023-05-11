@@ -53,12 +53,12 @@ $DRBD_DOMAINS
 }
 _EOT_
 
-	cp /vagrant/.vagrant/drbd.res /etc/drbd.d/drbd.res
+	ln -s /vagrant/.vagrant/drbd.res /etc/drbd.d/drbd.res
 	drbdadm -v create-md drbd
 	drbdadm -v up drbd
 	drbdadm -v primary drbd --force
 else
-	cp /vagrant/.vagrant/drbd.res /etc/drbd.d/drbd.res
+	ln -s /vagrant/.vagrant/drbd.res /etc/drbd.d/drbd.res
 	drbdadm -v up drbd
 	drbdadm -v primary drbd
 fi
