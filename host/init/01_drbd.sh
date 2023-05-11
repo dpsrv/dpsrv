@@ -54,13 +54,13 @@ _EOT_
 
 	cp /vagrant/.vagrant/drbd.res /etc/drbd.d/drbd.res
 	drbdadm -v create-md drbd
+	drbdadm -v up drbd
+	drbdadm -v primary drbd --force
 else
 	cp /vagrant/.vagrant/drbd.res /etc/drbd.d/drbd.res
+	drbdadm -v up drbd
+	drbdadm -v primary drbd
 fi
-
-drbdadm -v up drbd
-drbdadm -v primary drbd
-# drbdadm -v primary drbd --force
 
 if ! file $DRBD_DEV | grep -q ext4; then
    	mkfs.ext4 $DRBD_DEV
