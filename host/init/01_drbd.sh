@@ -37,6 +37,7 @@ if [ ! -f /vagrant/.vagrant/drbd.res ]; then
 	on $host {
 		address $ipv4:$port;
 	}
+
 _EOT_
 			i=$(( i + 1 ))
 		done
