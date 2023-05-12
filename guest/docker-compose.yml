@@ -1,7 +1,6 @@
 version: "3.8"
 services:
   bind:
-    image: bind
     build:
       context: bind
     volumes:
@@ -9,3 +8,16 @@ services:
       - /vagrant/rc/etc/bind/named.conf.options:/etc/bind/named.conf.options
       - /vagrant/rc/etc/bind/named.conf.zones:/etc/bind/named.conf.zones
       - /vagrant/rc/etc/bind/zones:/var/bind/zones
+    restart: always
+  hadoop:
+    build:
+      context: hadoop
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      container: docker
+    tmpfs:
+      - /run
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /vagrant:/vagrant

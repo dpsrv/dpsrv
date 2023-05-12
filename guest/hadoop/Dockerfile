@@ -16,5 +16,5 @@ RUN	tar xvzf hadoop-$HADOOP_VERSION.tar.gz -C /opt && \
 
 COPY files /
 
-CMD [ "/usr/local/bin/docker-entrypoint.sh" ]
+CMD [ "/usr/sbin/init" ]
 
