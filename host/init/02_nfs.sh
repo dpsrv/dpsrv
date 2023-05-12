@@ -1,6 +1,7 @@
 #!/bin/ash -ex
+exit 
 
-apk add add nfs-utils
+apk add nfs-utils
 
 [ -d /vagrant/.vagrant/nfs ] || mkdir /vagrant/.vagrant/nfs
 

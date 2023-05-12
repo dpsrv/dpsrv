@@ -1,6 +1,6 @@
 #!/bin/ash -ex
 
-apk add docker
+apk add docker cgroup-tools
 rc-update add docker
 rc-service docker start
 

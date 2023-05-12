@@ -1,5 +1,6 @@
 #!/bin/ash -ex
-exit 0
+exit
+
 apk add drbd lsblk
 
 DRBD_IMG=${DRBD_IMG:-/vagrant/.vagrant/drbd.img}
