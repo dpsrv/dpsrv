@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -lex
 
 if [ -d /vagrant/.vagrant/.ssh ]; then 
 	cp -r /vagrant/.vagrant/.ssh ~/.ssh 
@@ -14,7 +14,6 @@ nameserver $(getent hosts dpsrv-bind-1|awk '{ print $1 }')
 search dpsrv.me
 _EOT_
 
-HADOOP_HOME=${HADOOP_HOME:-/opt/hadoop}
 [ -d /tmp/hadoop-root/dfs/name ] || $HADOOP_HOME/bin/hdfs namenode -format
 $HADOOP_HOME/sbin/start-dfs.sh
 

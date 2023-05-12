@@ -6,7 +6,7 @@ ENV HADOOP_VERSION 3.3.5
 RUN curl -O https://dlcdn.apache.org/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz
 
 RUN amazon-linux-extras install -y epel && \
-	yum install -y curl tar gzip openssh-server openssh-clients hostname procps net-tools which iputils bind-utils nmap-ncat rsyslog && \
+	yum install -y curl tar gzip openssh-server openssh-clients hostname procps net-tools which iputils bind-utils nmap-ncat rsyslog initscripts && \
 	yum clean all && \
 	rm -rf /var/cache/yum
 
