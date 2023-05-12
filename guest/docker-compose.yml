@@ -18,6 +18,7 @@ services:
       container: docker
     ports:
       - "2322:22"
+      - "29000:9000"
       - "29868:9868"
     tmpfs:
       - /run

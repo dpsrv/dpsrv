@@ -14,6 +14,6 @@ nameserver $(getent hosts dpsrv-bind-1|awk '{ print $1 }')
 search dpsrv.me
 _EOT_
 
-[ -d /tmp/hadoop-root/dfs/name ] || $HADOOP_HOME/bin/hdfs namenode -format
+[ -d /vagrant/.vagrant/hadoop/data/name ] || $HADOOP_HOME/bin/hdfs namenode -format
 $HADOOP_HOME/sbin/start-dfs.sh
 
