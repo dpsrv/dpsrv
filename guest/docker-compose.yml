@@ -1,32 +1,11 @@
 version: "3.8"
 services:
-  main:
-    cap_add:
-      - NET_ADMIN
-      - SYS_ADMIN
-    image: main
+  bind:
+    image: bind
     build:
-      context: main
-    environment:
-      DPSRV_HOSTNAME: main
-      DPSRV_DEV_LOOP: /dev/loop0
-      DPSRV_DRBD_ADDRS: "main:7789 repl:7789"
-    devices:
-      - /dev/loop0
+      context: bind
     volumes:
-      - ${DPSRV_MNT}/main:/mnt/host
-  repl:
-    cap_add:
-      - NET_ADMIN
-      - SYS_ADMIN
-    image: main
-    depends_on:
-      - main
-    environment:
-      DPSRV_HOSTNAME: repl
-      DPSRV_DEV_LOOP: /dev/loop1
-      DPSRV_DRBD_ADDRS: "main:7789 repl:7789"
-    devices:
-      - /dev/loop1
-    volumes:
-      - ${DPSRV_MNT}/repl:/mnt/host
+      - ${DPSRV_MNT}/etc/bind/named.conf:/etc/bind/named.conf
+      - ${DPSRV_MNT}/etc/bind/named.conf.options:/etc/bind/named.conf.options
+      - ${DPSRV_MNT}/etc/bind/named.conf.zones:/etc/bind/named.conf.zones
+      - ${DPSRV_MNT}/etc/bind/zones:/var/bind/zones
