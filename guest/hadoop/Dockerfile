@@ -20,7 +20,7 @@ RUN systemctl enable rc-local.service && \
 COPY files/ /
 
 EXPOSE 22
-EXPOSE 9870
+EXPOSE 9868
 
 WORKDIR /root
 
