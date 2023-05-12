@@ -8,7 +8,7 @@ services:
       - /vagrant/rc/etc/bind/named.conf.options:/etc/bind/named.conf.options
       - /vagrant/rc/etc/bind/named.conf.zones:/etc/bind/named.conf.zones
       - /vagrant/rc/etc/bind/zones:/var/bind/zones
-    restart: always
+    restart: unless-stopped
   hadoop:
     build:
       context: hadoop
@@ -16,8 +16,10 @@ services:
       - SYS_ADMIN
     environment:
       container: docker
+    ports:
+      - "2322:22"
     tmpfs:
       - /run
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
       - /vagrant:/vagrant

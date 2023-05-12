@@ -8,8 +8,13 @@ Vagrant.configure("2") do |config|
 
 	config.vm.provision "shell", inline: "/vagrant/host/init.sh"
 
-	config.vm.network "forwarded_port", guest: 7788, host: 27788
-	config.vm.network "forwarded_port", guest: 2049, host: 22049
+	# DRBD
+	config.vm.network "forwarded_port", host: 27788, guest: 7788
+	# NFS
+	config.vm.network "forwarded_port", host: 22049, guest: 2049
+
+	# SSH/hadoop
+	config.vm.network "forwarded_port", host: 2322, guest: 2322
 
 	config.vm.provider "virtualbox" do |vb|
 		vb.name = "docker"

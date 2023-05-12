@@ -1,15 +1,20 @@
-#!/bin/bash
+#!/bin/bash -ex
 
-if [ -f /vagrant/.vagrant/.ssh/id_rsa ]; then 
-	cp /vagrant/.vagrant/.ssh/* ~/.ssh/ 
+if [ -d /vagrant/.vagrant/.ssh ]; then 
+	cp -r /vagrant/.vagrant/.ssh ~/.ssh 
 else
 	ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
 	cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys 
 	chmod 0600 ~/.ssh/authorized_keys
-	[ -d /vagrant/.vagrant/.ssh ] || mkdir -p /vagrant/.vagrant/.ssh
-	cp ~/.ssh/* vagrant/.vagrant/.ssh/
+	cp -r ~/.ssh vagrant/.vagrant/.ssh
 fi
 
-$HADOOP_HOME/bin/hdfs namenode -format
+cat <<_EOT_>> /etc/resolv.conf
+nameserver $(getent hosts dpsrv-bind-1|awk '{ print $1 }')
+search dpsrv.me
+_EOT_
+
+HADOOP_HOME=${HADOOP_HOME:-/opt/hadoop}
+[ -d /tmp/hadoop-root/dfs/name ] || $HADOOP_HOME/bin/hdfs namenode -format
 $HADOOP_HOME/sbin/start-dfs.sh
 

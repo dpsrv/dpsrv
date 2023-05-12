@@ -6,15 +6,22 @@ ENV HADOOP_VERSION 3.3.5
 RUN curl -O https://dlcdn.apache.org/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz
 
 RUN amazon-linux-extras install -y epel && \
-	yum install -y curl tar gzip openssh-server openssh-clients hostname procps net-tools which && \
+	yum install -y curl tar gzip openssh-server openssh-clients hostname procps net-tools which iputils bind-utils nmap-ncat rsyslog && \
 	yum clean all && \
 	rm -rf /var/cache/yum
 
 RUN	tar xvzf hadoop-$HADOOP_VERSION.tar.gz -C /opt && \
-	ln -s /opt/hadoop-$HADOOP_VERSION /opt/hadoop && \
+	mv /opt/hadoop-$HADOOP_VERSION /opt/hadoop && \
 	rm hadoop-$HADOOP_VERSION.tar.gz
 
-COPY files /
+RUN systemctl enable rc-local.service && \
+	systemctl enable rsyslog
+
+COPY files/ /
+
+EXPOSE 22
+
+WORKDIR /root
 
 CMD [ "/usr/sbin/init" ]
 
