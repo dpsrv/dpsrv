@@ -5,7 +5,7 @@ services:
     build:
       context: bind
     volumes:
-      - ${DPSRV_MNT}/etc/bind/named.conf:/etc/bind/named.conf
-      - ${DPSRV_MNT}/etc/bind/named.conf.options:/etc/bind/named.conf.options
-      - ${DPSRV_MNT}/etc/bind/named.conf.zones:/etc/bind/named.conf.zones
-      - ${DPSRV_MNT}/etc/bind/zones:/var/bind/zones
+      - /vagrant/rc/etc/bind/named.conf:/etc/bind/named.conf
+      - /vagrant/rc/etc/bind/named.conf.options:/etc/bind/named.conf.options
+      - /vagrant/rc/etc/bind/named.conf.zones:/etc/bind/named.conf.zones
+      - /vagrant/rc/etc/bind/zones:/var/bind/zones

@@ -1,0 +1,26 @@
+acl clients {
+		192.168.0.0/16;
+		localhost;
+        localnets;
+        ::1;
+};
+
+options {                                                                   
+        directory "/var/bind";
+        pid-file "/var/run/named/named.pid";
+                              
+        listen-on { any; };              
+        listen-on-v6 { any; };                
+
+        recursion yes;             
+		allow-recursion { clients; };
+		forwarders { 8.8.8.8; 8.8.4.4; };
+                                
+        allow-query { any; };                                                  
+                          
+        allow-transfer { none; };              
+                     
+        // If you have problems and are behind a firewall:
+        //query-source address * port 53;                 
+};                                
+

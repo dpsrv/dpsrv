@@ -1,0 +1,5 @@
+
+zone "dpsrv.me" {
+	type master;
+	file "zones/dpsrv.me";
+};
