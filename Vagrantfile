@@ -13,8 +13,11 @@ Vagrant.configure("2") do |config|
 	# NFS
 	config.vm.network "forwarded_port", host: 22049, guest: 2049
 
-	# SSH/hadoop
+	# hadoop ssh
 	config.vm.network "forwarded_port", host: 2322, guest: 2322
+
+	# hadoop web
+	config.vm.network "forwarded_port", host: 29870, guest: 9870
 
 	config.vm.provider "virtualbox" do |vb|
 		vb.name = "docker"
