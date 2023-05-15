@@ -35,6 +35,9 @@ sudo launchctl load /Library/LaunchDaemons/org.virtualbox.vboxautostart.plist
 At this point we may need to go to `Settings > Privacy & Security`, scroll down and Allow updates by Oracle.  
 > I have not figured out yet how to do this from the shell. Ideas?
 
+### Sensitive information
+Some of the information that we may store in git may be sensetive, and we do not want others to have access to it. We'll keep that in directory called `secrets/` and we'll encrypt it using [git-openssl-secrets](https://github.com/maxfortun/git-openssl-secrets).
+
 ### Vagrant
 > Used to download os images for VirtualBox.  
 
@@ -59,10 +62,6 @@ export DOCKER_HOST=ssh://docker
 ```
 
 At this point we should be able to use docker commands in a familiar manner.
-
-### Sensitive information
-Some of the information that we may store in git may be sensetive, and we do not want others to have access to it. We'll keep that in directory called `secrets/` and we'll encrypt it using [git-openssl-secrets](https://github.com/maxfortun/git-openssl-secrets).
-
 
 ### DNS
 While most do not think of it as such, DNS is the most ubiquitous distributed database on the internet.
