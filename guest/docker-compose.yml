@@ -3,6 +3,8 @@ services:
   bind:
     build:
       context: bind
+    environment:
+      GIT_BIND_RC_REPO: "https://github.com/dpsrv/rc-bind"
     volumes:
       - /root/.config/git:/root/.config/git
       - /vagrant/rc/etc/bind/named.conf:/etc/bind/named.conf
