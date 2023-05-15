@@ -4,6 +4,7 @@ services:
     build:
       context: bind
     volumes:
+      - /root/.config/git:/root/.config/git
       - /vagrant/rc/etc/bind/named.conf:/etc/bind/named.conf
       - /vagrant/rc/etc/bind/named.conf.options:/etc/bind/named.conf.options
       - /vagrant/rc/etc/bind/named.conf.zones:/etc/bind/named.conf.zones

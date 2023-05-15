@@ -5,6 +5,7 @@ Vagrant.configure("2") do |config|
 	config.vm.hostname = "docker"
 
 	config.vm.synced_folder ".", "/vagrant", disabled: false
+	config.vm.synced_folder "$HOME/.config/git/dpsrv", "/root/.config/git/dpsrv", disabled: false
 
 	config.vm.provision "shell", inline: "/vagrant/host/init.sh"
 
