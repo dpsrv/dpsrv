@@ -21,6 +21,7 @@ COPY files/ /
 
 EXPOSE 22
 EXPOSE 9868
+EXPOSE 9870
 
 WORKDIR /root
 
