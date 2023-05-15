@@ -32,7 +32,7 @@ sudo chmod a+x /Applications/VirtualBox.app/Contents/MacOS/VBoxAutostartDarwin.s
 sudo launchctl load /Library/LaunchDaemons/org.virtualbox.vboxautostart.plist
 ```
 
-At this point you may need to go to `Settings > Privacy & Security`, scroll down and Allow updates by Oracle.  
+At this point we may need to go to `Settings > Privacy & Security`, scroll down and Allow updates by Oracle.  
 > I have not figured out yet how to do this from the shell. Ideas?
 
 ### Vagrant
@@ -51,14 +51,18 @@ vagrant ssh-config --host docker >> $HOME/.ssh/config
 
 Download and install [Docker Desktop](https://www.docker.com/products/docker-desktop/).  
 
-> You do not need to run it, as your host is already set up.
+> We do not need to run it, as our host is already set up.
 
 Configure location of the docker host:
 ```bash
 export DOCKER_HOST=ssh://docker
 ```
 
-At this point you should be able to use docker commands in a familiar manner.
+At this point we should be able to use docker commands in a familiar manner.
+
+### Sensitive information
+Some of the information that we may store in git may be sensetive, and we do not want others to have access to it. We'll keep that in directory called `secrets/` and we'll encrypt it using [git-openssl-secrets](https://github.com/maxfortun/git-openssl-secrets).
+
 
 ### DNS
 While most do not think of it as such, DNS is the most ubiquitous distributed database on the internet.
