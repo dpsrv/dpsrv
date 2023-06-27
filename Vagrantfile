@@ -4,6 +4,8 @@ Vagrant.configure("2") do |config|
 	config.vm.box      = "generic/alpine317"
 	config.vm.hostname = "docker"
 
+	config.vm.synced_folder "/Users", "/Users", disabled: false
+	config.vm.synced_folder "/Volumes", "/Volumes", disabled: false
 	config.vm.synced_folder ".", "/vagrant", disabled: false
 	config.vm.synced_folder "#{Dir.home}/.config/git/dpsrv", "/root/.config/git/dpsrv", disabled: false
 
