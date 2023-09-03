@@ -1,6 +1,6 @@
 #!/bin/ash -ex
 
-adduser $USER vboxsf
+adduser vagrant vboxsf
 
 mount -a
 
