@@ -4,14 +4,20 @@ Vagrant.configure("2") do |config|
 	config.vm.box      = "generic/alpine317"
 	config.vm.hostname = "docker"
 
-	config.vm.synced_folder "/Users", "/Users", type: "nfs", nfs_udp: false
-	config.vm.synced_folder "/Volumes", "/Volumes", type: "nfs", nfs_udp: false
-	config.vm.synced_folder ".", "/vagrant", type: "nfs", nfs_udp: false
-	config.vm.synced_folder "#{Dir.home}/.config/git/dpsrv", "/root/.config/git/dpsrv", type: "nfs", nfs_udp: false
+	config.vm.synced_folder "/Users", 		                   "/Users"                     , type: "nfs", nfs_udp: false
+	config.vm.synced_folder "/Volumes",                        "/Volumes"                   , type: "nfs", nfs_udp: false
+	config.vm.synced_folder ".",                               "/vagrant"                   , type: "nfs", nfs_udp: false
+	config.vm.synced_folder "#{Dir.home}/.config/git/dpsrv",   "/root/.config/git/dpsrv"    , type: "nfs", nfs_udp: false
 
 	config.vm.provision "shell", inline: "/vagrant/host/init.sh"
 
 	config.vm.network "private_network", type: "dhcp"
+
+	# HTTP
+	config.vm.network "forwarded_port", host: 80, guest: 80
+
+	# HTTPS
+	config.vm.network "forwarded_port", host: 443, guest: 443
 
 	# DRBD
 	config.vm.network "forwarded_port", host: 27788, guest: 7788
