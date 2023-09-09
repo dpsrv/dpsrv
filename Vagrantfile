@@ -19,8 +19,8 @@ Vagrant.configure("2") do |config|
 
 	config.vm.provider "virtualbox" do |vb|
 		vb.name	= "docker"
-
 		vb.customize ["modifyvm", :id, "--autostart-enabled", "on"]
 		vb.customize ["modifyvm", :id, "--autostop-type", "acpishutdown"]
+		vb.customize ['modifyvm', :id, '--graphicscontroller', 'vmsvga']
 	end
 end
