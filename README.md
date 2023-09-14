@@ -69,13 +69,17 @@ And being itself distributed it is uniquely suited for being used to configure o
 In our distributed system each server will run as a master and will dynamically generate its configuration files from shared storage[tbd]. 
 The initial node does not need to be aware of any other nodes, however, when a new node wants to join a cluster it will need a hostname of a cluster's A record.
 
-1. ionotifywait -r /var/dpsrv/etc/bind
-2. combind /var/dpsrv/etc/bind > /etc/bind
-3. kill -HUP bind
+### WWW
 
-### Certbot
+### CERTIFICATES
 
-### Storage
+### MAIL SERVER
+
+### MAIL WEB CLIENT
+
+### SCHEDULER
+
+### STORAGE
 We will need shared storage for our servers to keep their configuration in sync.  
 > This is not intended to be used for application data. Only for the configuration.  
 
