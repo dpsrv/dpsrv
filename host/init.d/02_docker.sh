@@ -12,3 +12,5 @@ while [ ! -e /var/run/docker/containerd/containerd.sock ]; do
 done
 
 chgrp docker /var/run/docker/containerd/containerd.sock
+
+docker network create dpsrv
