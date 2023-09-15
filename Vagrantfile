@@ -12,7 +12,7 @@ Vagrant.configure('2') do |config|
 		dir = "/Volumes/#{entry}"
 		stat = File.stat(dir)
 		next if entry == ".." || entry == "." || not(File.directory? dir) || stat.uid != 0
-		config.vm.synced_folder dir, dir, type: 'nfs', nfs_udp: false
+		config.vm.synced_folder dir, dir, type: 'nfs', nfs_udp: false, mount_options: [ 'nolock' ]
 	end
 
 	config.vm.provision 'shell', inline: '/vagrant/host/init.sh'
