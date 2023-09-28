@@ -26,8 +26,8 @@ Vagrant.configure('2') do |config|
 	config.vm.provider 'virtualbox' do |vb|
 		vb.name		= 'docker'
 
-		vb.memory	= 4096
-		vb.cpus		= 2
+		vb.memory	= 2048
+		vb.cpus		= 1
 
 		vb.customize ['modifyvm', :id, '--autostart-enabled', 'on']
 		vb.customize ['modifyvm', :id, '--autostop-type', 'acpishutdown']
