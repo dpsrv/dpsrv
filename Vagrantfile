@@ -20,7 +20,8 @@ Vagrant.configure('2') do |config|
 	config.vm.network 'private_network', type: 'dhcp'
 
 	for i in 50000..51000
-		config.vm.network :forwarded_port, guest: i, host: i
+		config.vm.network :forwarded_port, guest: i, host: i, protocol: 'tcp'
+		config.vm.network :forwarded_port, guest: i, host: i, protocol: 'udp'
 	end
 
 	config.vm.provider 'virtualbox' do |vb|
