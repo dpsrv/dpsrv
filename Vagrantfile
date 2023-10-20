@@ -1,4 +1,3 @@
-
 Vagrant.configure('2') do |config|
 	config.vm.define 'docker'
 
@@ -20,13 +19,13 @@ Vagrant.configure('2') do |config|
 
 	config.vm.network 'private_network', type: 'dhcp'
 
-	wifiBridge=`networksetup -listallhardwareports | grep -A 1 Wi-Fi | sed 's/^[^:]*: //g' | nl | sort -nr | cut -f2- | paste - - | sed $'s/[\s\t][\s\t]*/: /' | tr -d '\n'`
-	config.vm.network 'public_network', bridge: [ wifiBridge ]
+	# wifiBridge=`networksetup -listallhardwareports | grep -A 1 Wi-Fi | sed 's/^[^:]*: //g' | nl | sort -nr | cut -f2- | paste - - | sed $'s/[\s\t][\s\t]*/: /' | tr -d '\n'`
+	# config.vm.network 'public_network', bridge: [ wifiBridge ]
 
-	#for i in 50000..51000
-		#config.vm.network :forwarded_port, guest: i, host: i, protocol: 'tcp'
-		#config.vm.network :forwarded_port, guest: i, host: i, protocol: 'udp'
-	#end
+	for i in 50000..51000
+		config.vm.network :forwarded_port, guest: i, host: i, protocol: 'tcp'
+		config.vm.network :forwarded_port, guest: i, host: i, protocol: 'udp'
+	end
 
 	config.vm.provider 'virtualbox' do |vb|
 		vb.name		= 'docker'
