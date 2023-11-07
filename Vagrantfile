@@ -4,9 +4,23 @@ Vagrant.configure('2') do |config|
 	config.vm.box		= 'generic/alpine318'
 	config.vm.hostname	= 'docker'
 
-	config.vm.synced_folder '/Users', 							'/Users'					, type: 'nfs', nfs_udp: false
-	config.vm.synced_folder '.',								'/vagrant'					, type: 'nfs', nfs_udp: false		
-	config.vm.synced_folder "#{Dir.home}/.config/git/dpsrv",	'/root/.config/git/dpsrv'	, type: 'nfs', nfs_udp: false
+	config.vm.synced_folder	'/Users', 						
+							'/Users',
+							type: 'nfs',
+							nfs_udp: false,
+							mount_options: [ 'soft' ,'bg', 'timeo=30' ]
+
+	config.vm.synced_folder	'.',
+							'/vagrant',
+							type: 'nfs',
+							nfs_udp: false,
+							mount_options: [ 'soft' ,'bg', 'timeo=30' ]
+
+	config.vm.synced_folder "#{Dir.home}/.config/git/dpsrv",
+							'/root/.config/git/dpsrv',
+							type: 'nfs',
+							nfs_udp: false,
+							mount_options: [ 'soft' ,'bg', 'timeo=30' ]
 
 	Dir.entries('/Volumes/').each do |entry|
 		dir = "/Volumes/#{entry}"
