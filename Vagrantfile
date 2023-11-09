@@ -8,19 +8,19 @@ Vagrant.configure('2') do |config|
 							'/Users',
 							type: 'nfs',
 							nfs_udp: false,
-							mount_options: [ 'soft' ,'bg', 'timeo=30' ]
+							mount_options: [ '_netdev', 'fg', 'hard', 'timeo=150', 'retrans=2' ]
 
 	config.vm.synced_folder	'.',
 							'/vagrant',
 							type: 'nfs',
 							nfs_udp: false,
-							mount_options: [ 'soft' ,'bg', 'timeo=30' ]
+							mount_options: [ '_netdev', 'fg', 'hard', 'timeo=150', 'retrans=2' ]
 
 	config.vm.synced_folder "#{Dir.home}/.config/git/dpsrv",
 							'/root/.config/git/dpsrv',
 							type: 'nfs',
 							nfs_udp: false,
-							mount_options: [ 'soft' ,'bg', 'timeo=30' ]
+							mount_options: [ '_netdev', 'fg', 'hard', 'timeo=150', 'retrans=2' ]
 
 	Dir.entries('/Volumes/').each do |entry|
 		dir = "/Volumes/#{entry}"
