@@ -50,5 +50,6 @@ Vagrant.configure('2') do |config|
 		vb.customize ['modifyvm', :id, '--autostart-enabled', 'on']
 		vb.customize ['modifyvm', :id, '--autostop-type', 'acpishutdown']
 		vb.customize ['modifyvm', :id, '--graphicscontroller', 'vmsvga']
+		vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
 	end
 end
