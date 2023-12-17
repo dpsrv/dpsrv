@@ -1,21 +1,28 @@
+
 Vagrant.configure('2') do |config|
 
 	config.trigger.before :up do |trigger|
-		trigger.info = "Running a before trigger!"
-		`
-			if [ -n $DPSRV_VM_HOME ]; then
-				VBoxManage setproperty machinefolder $DPSRV_VM_HOME
-			fi
-		`
+		trigger.run = { inline: <<-_EOT_
+			bash -c '
+				if [ -n "$DPSRV_VM_HOME" -a -d "$DPSRV_VM_HOME" ]; then
+					echo "Setting VBox machinefolder to $DPSRV_VM_HOME"
+					VBoxManage setproperty machinefolder "$DPSRV_VM_HOME"
+				fi
+			'
+_EOT_
+		}
 	end
 	
 	config.trigger.after :up do |trigger|
-		trigger.info = "Running after trigger!"
-		`
-			if [ -n $DPSRV_VM_HOME ]; then
-				VBoxManage setproperty machinefolder default
-			fi
-		`
+		trigger.run = { inline: <<-_EOT_
+			bash -c '
+				if [ -n "$DPSRV_VM_HOME" -a -d "$DPSRV_VM_HOME" ]; then
+					echo "Setting VBox machinefolder to default"
+					VBoxManage setproperty machinefolder default
+				fi
+			'
+_EOT_
+		}
 	end
 
 	config.vm.define 'docker'
