@@ -1,4 +1,23 @@
 Vagrant.configure('2') do |config|
+
+	config.trigger.before :up do |trigger|
+		trigger.info = "Running a before trigger!"
+		`
+			if [ -n $DPSRV_VM_HOME ]; then
+				VBoxManage setproperty machinefolder $DPSRV_VM_HOME
+			fi
+		`
+	end
+	
+	config.trigger.after :up do |trigger|
+		trigger.info = "Running after trigger!"
+		`
+			if [ -n $DPSRV_VM_HOME ]; then
+				VBoxManage setproperty machinefolder default
+			fi
+		`
+	end
+
 	config.vm.define 'docker'
 
 	config.vm.box		= 'generic/alpine318'
