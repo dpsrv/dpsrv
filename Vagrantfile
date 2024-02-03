@@ -59,8 +59,10 @@ _EOT_
 
 	config.vm.network 'private_network', type: 'dhcp'
 
-	# wifiBridge=`networksetup -listallhardwareports | grep -A 1 Wi-Fi | sed 's/^[^:]*: //g' | nl | sort -nr | cut -f2- | paste - - | sed $'s/[\s\t][\s\t]*/: /' | tr -d '\n'`
-	# config.vm.network 'public_network', bridge: [ wifiBridge ]
+	for bridgeName in [ "Wi-Fi", "Ethernet" ]
+		bridge=`networksetup -listallhardwareports | grep -A 1 "Hardware Port: #{bridgeName}" | sed 's/^[^:]*: //g' | nl | sort -nr | cut -f2- | paste - - | sed $'s/[\s\t][\s\t]*/: /' | tr -d '\n'`
+		config.vm.network 'public_network', bridge: bridge
+	end
 
 	for i in 50000..51000
 		config.vm.network :forwarded_port, guest: i, host: i, protocol: 'tcp'
